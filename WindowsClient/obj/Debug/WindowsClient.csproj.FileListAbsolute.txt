@@ -1,0 +1,7 @@
+C:\Users\Elitez\Desktop\WindowsClient\bin\Debug\WindowsClient.exe.config
+C:\Users\Elitez\Desktop\WindowsClient\bin\Debug\WindowsClient.exe
+C:\Users\Elitez\Desktop\WindowsClient\bin\Debug\WindowsClient.pdb
+C:\Users\Elitez\Desktop\WindowsClient\obj\Debug\WindowsClient.csproj.AssemblyReference.cache
+C:\Users\Elitez\Desktop\WindowsClient\obj\Debug\WindowsClient.csproj.CoreCompileInputs.cache
+C:\Users\Elitez\Desktop\WindowsClient\obj\Debug\WindowsClient.exe
+C:\Users\Elitez\Desktop\WindowsClient\obj\Debug\WindowsClient.pdb
