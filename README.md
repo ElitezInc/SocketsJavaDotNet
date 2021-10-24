@@ -9,6 +9,9 @@ Open JavaServer project with Intellij and run it, once it shows "Waiting for the
 ## Client
 Open WindowsClient .sln project with visual studio, then you can start the project with debugging or without debugging by pressing ctrl + f5, then observe how client-server functionality is working.
 
+## Important
+Don't forget to modify IP adresses in the code when connecting
+
 # Todo
 * Upgrade the Windows client to WPF application
 * Implement server functionality in NodeJS
