@@ -15,3 +15,4 @@ Open WindowsClient .sln project with visual studio, then you can start the proje
 * Add more features, because at the moment both server and client only contains working core logic for data transfer
 * Test functionality with multiple clients (at the moment it's only tested with one client)
 * Create more projects with Socket.io library, also Android Studio and Xamarin projects as clients
+* Implement protobuf later on to switch from json to binary data transfer for saving bandwith
