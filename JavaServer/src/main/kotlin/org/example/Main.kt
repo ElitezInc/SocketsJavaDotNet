@@ -22,80 +22,66 @@ internal object Main
     fun socketServer()
     {
         val server = ServerSocket(9092)
+        var currentClient = 0
 
-        println("Waiting for the client connection")
-
-        val socket: Socket = server.accept()
-
-        println("Client connected")
-
-        val output = BufferedOutputStream(socket.getOutputStream())
-        val input =  BufferedInputStream(socket.getInputStream())
-
-        val listenThread = Thread { listenFunctionality(input) }
-        val sendThread = Thread { sendFunctionality(output) }
-
-        listenThread.start()
-        sendThread.start()
-
-        while (listenThread.isAlive && sendThread.isAlive)
+        while (true)
         {
-            sleep(50)
+            try
+            {
+                println("Waiting for the client connection")
+
+                val socket: Socket = server.accept()
+
+                currentClient++
+
+                println("Client connected")
+
+                val output = BufferedOutputStream(socket.getOutputStream())
+                val input =  BufferedInputStream(socket.getInputStream())
+
+                Thread { listenFunctionality(input, currentClient) }.also { it.start() }
+                Thread { sendFunctionality(output, currentClient) }.also { it.start() }
+            }
+            catch (err : Exception)
+            {
+                err.printStackTrace()
+                break
+            }
         }
 
         println("Shutting down Socket server")
-        listenThread.stop()
-        sendThread.stop()
-        output.close()
-        input.close()
         server.close()
     }
 
-    fun listenFunctionality(input: InputStream)
+    fun listenFunctionality(input: InputStream, clientNo : Int)
     {
         while (true)
         {
-            try
+            if (isReceiveText(input))
             {
-                if (isReceiveText(input))
-                {
-                    val size = receiveSize(input)
-                    println("Received text: ${String(receiveBytes(input, size), StandardCharsets.UTF_8)}")
-                }
-                else
-                {
-                    val size = receiveSize(input)
-                    receiveFile(input, File("Received.jpg"))
-                    println("Received file saved")
-                }
+                val size = receiveSize(input)
+                println("$clientNo: Received text: ${String(receiveBytes(input, size), StandardCharsets.UTF_8)}")
             }
-            catch (err : Exception)
+            else
             {
-                err.printStackTrace()
-                break;
+                val size = receiveSize(input)
+                receiveFile(input, File("Received.jpg"))
+                println("$clientNo: Received file saved")
             }
         }
     }
 
-    fun sendFunctionality(output : OutputStream)
+    fun sendFunctionality(output : OutputStream, clientNo: Int)
     {
         while (true)
         {
-            try
-            {
-                sendFile(output, false, File("Capture.jpg"))
-                println("Sent binary file")
-                sleep((Math.random() * 10000).toLong())
+            sendFile(output, false, File("Capture.jpg"))
+            println("$clientNo: Sent binary file")
+            sleep((Math.random() * 10000).toLong())
 
-                sendFile(output, true, File("data.json"))
-                println("Sent text file")
-                sleep((Math.random() * 10000).toLong())
-            }
-            catch (err : Exception)
-            {
-                err.printStackTrace()
-                break;
-            }
+            sendFile(output, true, File("data.json"))
+            println("$clientNo: Sent text file")
+            sleep((Math.random() * 10000).toLong())
         }
     }
 
