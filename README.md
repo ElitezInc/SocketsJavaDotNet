@@ -19,3 +19,4 @@ Don't forget to modify IP adresses in the code when connecting
 * Test functionality with multiple clients (at the moment it's only tested with one client)
 * Create more projects with Socket.io library, also Android Studio and Xamarin projects as clients
 * Implement protobuf later on to switch from json to binary data transfer for saving bandwith
+* Add SSL support with authentication to sockets to establish security
